@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexágono Gangorra Fluida</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .cena {
+            position: relative;
+            width: 600px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Suporte da gangorra */
+        .suporte {
+            position: absolute;
+            bottom: -50px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 50px solid #333;
+        }
+
+        /* A Linha da Gangorra */
+        .gangorra {
+            position: relative;
+            width: 100%;
+            height: 6px;
+            background-color: #fff;
+            transform-origin: center center;
+            /* Movimento suave de balanço */
+            animation: balanco 3s ease-in-out infinite;
+        }
+
+        /* O Hexágono que sobe sempre */
+        .hexagono {
+            position: absolute;
+            width: 50px;
+            height: 28.87px;
+            background-color: #fff;
+            bottom: 6px; 
+            left: 50%;
+            margin-left: -25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Movimento contínuo sem travar no meio */
+            animation: deslizeContinuo 3s linear infinite;
+        }
+
+        /* Desenho do Hexágono */
+        .hexagono::before, .hexagono::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+        }
+        .hexagono::before { bottom: 100%; border-bottom: 14.43px solid #fff; }
+        .hexagono::after { top: 100%; border-top: 14.43px solid #fff; }
+
+        /* --- ANIMAÇÕES --- */
+
+        @keyframes balanco {
+            0%, 100% { transform: rotate(-22deg); } /* Lado direito no ALTO */
+            50% { transform: rotate(22deg); }      /* Lado esquerdo no ALTO */
+        }
+
+        @keyframes deslizeContinuo {
+            0%, 100% { 
+                /* Está na ponta direita alta */
+                transform: translateX(270px) rotate(360deg); 
+            }
+            50% { 
+                /* Passa direto e vai para a ponta esquerda alta */
+                transform: translateX(-270px) rotate(-360deg); 
+            }
+            /* Removido o frame de 25%/75% para não "travar" ou desacelerar no meio */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cena">
+        <div class="suporte"></div>
+        <div class="gangorra">
+            <div class="hexagono"></div>
+        </div>
+    </div>
+
+</body>
+</html>
